@@ -121,6 +121,12 @@ const AppContent = () => {
         />
       </main>
       <SelectionModal characters={characters} weapons={weapons} />
+      <footer className="app-footer">
+        <p className="disclaimer">
+          본 프로젝트는 HoYoverse와 연관이 없습니다.<br />
+          Genshin Impact, 게임의 콘텐츠와 소재의 트레이드마크와 저작권은 HoYoverse에 있습니다.
+        </p>
+      </footer>
     </div>
   );
 };
