@@ -1,0 +1,222 @@
+﻿﻿.party-slot-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s ease;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.party-slot-card.inactive {
+  border-style: dashed;
+  border-color: #b0bec5;
+  background-color: #fafafa;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.party-slot-card.inactive:hover {
+  border-color: #667eea;
+  background-color: #f3f5ff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+}
+
+.party-slot-card.active {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+/* 비활성 슬롯 */
+.slot-content-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  color: #b0bec5;
+  font-weight: 300;
+}
+
+.empty-text {
+  color: #78909c;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* 활성 슬롯 */
+.slot-content-active {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  height: 100%;
+}
+
+.character-section {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.character-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: #f5f5f5;
+}
+
+.weapon-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: #f5f5f5;
+}
+
+.character-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.character-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #212121;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.control-group label {
+  color: #616161;
+  font-weight: 600;
+  min-width: 35px;
+}
+
+.select-dropdown {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #bdbdbd;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.select-dropdown:hover {
+  border-color: #667eea;
+}
+
+.select-dropdown:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 무기 섹션 */
+.weapon-section {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.weapon-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.weapon-name {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #424242;
+}
+
+/* 코스트 섹션 */
+.cost-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.cost-display {
+  font-size: 0.95rem;
+  color: #616161;
+  font-weight: 600;
+}
+
+.cost-value {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.reset-slot-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-slot-btn:hover {
+  background-color: #ff5252;
+  transform: translateY(-1px);
+}
+
+.reset-slot-btn:active {
+  transform: translateY(0);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .party-slot-card {
+    min-height: 250px;
+  }
+
+  .character-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .weapon-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .character-name {
+    font-size: 0.9rem;
+  }
+
+  .weapon-name {
+    font-size: 0.8rem;
+  }
+}

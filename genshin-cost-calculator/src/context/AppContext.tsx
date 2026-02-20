@@ -1,0 +1,129 @@
+﻿import React, { createContext, useContext, useReducer } from 'react';
+import type { ReactNode } from 'react';
+import type { AppState } from '../types.ts';
+import { createInitialAppState } from '../utils/helpers';
+
+/**
+ * 액션 타입 정의
+ */
+export type AppAction =
+  | { type: 'SELECT_CHARACTER'; partyNumber: number; slotIndex: number; characterId: string }
+  | { type: 'SELECT_WEAPON'; partyNumber: number; slotIndex: number; weaponId: string }
+  | { type: 'SET_CONSTELLATION_LEVEL'; partyNumber: number; slotIndex: number; level: number }
+  | { type: 'SET_REFINE_LEVEL'; partyNumber: number; slotIndex: number; level: number }
+  | { type: 'RESET_SLOT'; partyNumber: number; slotIndex: number }
+  | { type: 'RESET_ALL' };
+
+/**
+ * 리듀서 함수
+ */
+const appReducer = (state: AppState, action: AppAction): AppState => {
+  const party = action.type !== 'RESET_ALL' && 'partyNumber' in action
+    ? action.partyNumber === 1 ? [...state.party1] : [...state.party2]
+    : null;
+  
+  switch (action.type) {
+    case 'SELECT_CHARACTER': {
+      const newParty = party!;
+      newParty[action.slotIndex] = {
+        ...newParty[action.slotIndex],
+        characterId: action.characterId,
+        constellationLevel: 0, // 캐릭터 선택 시 돌파 레벨 초기화
+      };
+      return action.partyNumber === 1
+        ? { ...state, party1: newParty }
+        : { ...state, party2: newParty };
+    }
+
+    case 'SELECT_WEAPON': {
+      const newParty = party!;
+      newParty[action.slotIndex] = {
+        ...newParty[action.slotIndex],
+        weaponId: action.weaponId,
+        refineLevel: 0, // 무기 선택 시 돌파 레벨 초기화
+      };
+      return action.partyNumber === 1
+        ? { ...state, party1: newParty }
+        : { ...state, party2: newParty };
+    }
+
+    case 'SET_CONSTELLATION_LEVEL': {
+      const newParty = party!;
+      newParty[action.slotIndex] = {
+        ...newParty[action.slotIndex],
+        constellationLevel: action.level,
+      };
+      return action.partyNumber === 1
+        ? { ...state, party1: newParty }
+        : { ...state, party2: newParty };
+    }
+
+    case 'SET_REFINE_LEVEL': {
+      const newParty = party!;
+      newParty[action.slotIndex] = {
+        ...newParty[action.slotIndex],
+        refineLevel: action.level,
+      };
+      return action.partyNumber === 1
+        ? { ...state, party1: newParty }
+        : { ...state, party2: newParty };
+    }
+
+    case 'RESET_SLOT': {
+      const newParty = party!;
+      newParty[action.slotIndex] = {
+        characterId: undefined,
+        constellationLevel: 0,
+        weaponId: undefined,
+        refineLevel: 0,
+      };
+      return action.partyNumber === 1
+        ? { ...state, party1: newParty }
+        : { ...state, party2: newParty };
+    }
+
+    case 'RESET_ALL': {
+      return createInitialAppState();
+    }
+
+    default:
+      return state;
+  }
+};
+
+/**
+ * Context 타입
+ */
+interface AppContextType {
+  state: AppState;
+  dispatch: React.Dispatch<AppAction>;
+}
+
+/**
+ * AppContext 생성
+ */
+const AppContext = createContext<AppContextType | undefined>(undefined);
+
+/**
+ * AppProvider 컴포넌트
+ */
+export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(appReducer, createInitialAppState());
+
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+/**
+ * AppContext 사용 커스텀 훅
+ */
+export const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within AppProvider');
+  }
+  return context;
+};
