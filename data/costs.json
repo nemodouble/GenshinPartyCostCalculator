@@ -1168,13 +1168,13 @@
         },
         "aino": {
             "constellation": [
-                6,
-                8,
-                10,
-                10.7,
-                12.7,
-                13.4,
-                15.4
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "nilou": {
@@ -1236,11 +1236,11 @@
     "defaultWeaponCosts": {
         "refine": [
             0,
-            0.3,
-            0.6,
-            0.9,
-            1.2,
-            1.5
+            0,
+            0,
+            0,
+            0,
+            0
         ]
     },
     "weapons": {
@@ -1317,11 +1317,11 @@
         "sword_falcon": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "polearm_caduceus": {
@@ -1497,11 +1497,11 @@
         "claymore_wolf_s_gravestone": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "sword_toukabou_shigure": {
@@ -2007,11 +2007,11 @@
         "catalyst_skyward_atlas": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "polearm_story_teller": {
@@ -2047,11 +2047,11 @@
         "polearm_primordial_jade_winged_spear": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "claymore_wisdom_honed_by_fire": {
@@ -2087,11 +2087,11 @@
         "claymore_skyward_pride": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "catalyst_blackcliff_amulet": {
@@ -2367,11 +2367,11 @@
         "catalyst_lost_prayer_to_the_sacred_winds": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "sword_splendor_of_tranquil_waters": {
@@ -2787,11 +2787,11 @@
         "sword_aquila_favonia": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "bow_blackcliff_warbow": {
@@ -2847,11 +2847,11 @@
         "bow_skyward_harp": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "polearm_blackcliff_pole": {
@@ -2927,11 +2927,11 @@
         "bow_amos_bow": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "polearm_the_director": {
@@ -2957,11 +2957,11 @@
         "polearm_skyward_spine": {
             "refine": [
                 0,
-                0.3,
-                0.6,
-                0.9,
-                1.2,
-                1.5
+                0,
+                0,
+                0,
+                0,
+                0
             ]
         },
         "polearm_engulfing_lightning": {
