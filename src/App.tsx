@@ -23,12 +23,13 @@ const AppContent = () => {
     const loadData = async () => {
       try {
         setLoading(true);
+        const base = import.meta.env.BASE_URL;
         const [charactersRes, weaponsRes, costsRes, charInfoRes, weaponInfoRes] = await Promise.all([
-          fetch('/data/characters.json'),
-          fetch('/data/weapons.json'),
-          fetch('/data/costs.json'),
-          fetch('/data/character-info.json'),
-          fetch('/data/weapon-info.json'),
+          fetch(`${base}data/characters.json`),
+          fetch(`${base}data/weapons.json`),
+          fetch(`${base}data/costs.json`),
+          fetch(`${base}data/character-info.json`),
+          fetch(`${base}data/weapon-info.json`),
         ]);
 
         if (!charactersRes.ok || !weaponsRes.ok || !costsRes.ok || !charInfoRes.ok || !weaponInfoRes.ok) {
