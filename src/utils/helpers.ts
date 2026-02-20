@@ -1,6 +1,19 @@
 ﻿import type { Character, Weapon, AppState } from '../types.ts';
 
 /**
+ * 이미지 경로에 BASE_URL 적용
+ * @param path - 원본 경로 (예: /images/characters/...)
+ * @returns BASE_URL이 적용된 경로
+ */
+export const getAssetPath = (path: string | undefined): string => {
+  if (!path) return '';
+  const base = import.meta.env.BASE_URL;
+  // 경로가 /로 시작하면 제거 후 base와 결합
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${base}${cleanPath}`;
+};
+
+/**
  * 캐릭터 ID로 캐릭터 객체 찾기
  * @param characterId - 캐릭터 ID
  * @param characters - 모든 캐릭터 배열

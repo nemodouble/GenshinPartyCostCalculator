@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { getAssetPath } from '../utils/helpers';
 import '../styles/ItemCard.css';
 
 interface ItemCardProps {
@@ -28,11 +29,11 @@ const ItemCard: React.FC<ItemCardProps> = ({
     >
       <div className={`item-icon-wrapper ${rarityClass}`}>
         <img
-          src={icon}
+          src={getAssetPath(icon)}
           alt={name}
           className="item-icon"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = '/placeholder.png';
+            (e.target as HTMLImageElement).src = getAssetPath('/placeholder.png');
           }}
         />
         {isSelected && <div className="selected-badge">✓</div>}

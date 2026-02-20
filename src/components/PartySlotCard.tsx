@@ -1,6 +1,6 @@
-﻿﻿import React, { useMemo } from 'react';
+﻿import React, { useMemo } from 'react';
 import type { PartySlot, Character, Weapon, CostData } from '../types.ts';
-import { findCharacter, findWeapon } from '../utils/helpers';
+import { findCharacter, findWeapon, getAssetPath } from '../utils/helpers';
 import { calculateSlotCost, formatCost } from '../utils/cost-calculator';
 import { useAppContext } from '../context/AppContext';
 import { useSelectionModal } from '../context/SelectionModalContext';
@@ -86,11 +86,11 @@ const PartySlotCard: React.FC<PartySlotCardProps> = ({
           {/* 캐릭터 정보 */}
           <div className="character-section">
             <img
-              src={character?.icon}
+              src={getAssetPath(character?.icon)}
               alt={character?.name}
               className={`character-icon ${characterRarityClass}`}
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/placeholder.png';
+                (e.target as HTMLImageElement).src = getAssetPath('/placeholder.png');
               }}
             />
             <div className="character-info">
@@ -115,11 +115,11 @@ const PartySlotCard: React.FC<PartySlotCardProps> = ({
           {/* 무기 정보 */}
           <div className="weapon-section">
             <img
-              src={weapon?.icon}
+              src={getAssetPath(weapon?.icon)}
               alt={weapon?.name}
               className={`weapon-icon ${weaponRarityClass}`}
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/placeholder.png';
+                (e.target as HTMLImageElement).src = getAssetPath('/placeholder.png');
               }}
             />
             <div className="weapon-info">
