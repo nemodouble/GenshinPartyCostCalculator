@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
   publicDir: 'public',
-  // 개발 모드에서는 /, 프로덕션(GitHub Pages)에서는 /GenshinCostCalculator/
-  base: mode === 'production' ? '/GenshinCostCalculator/' : '/',
+  // 개발 모드에서는 /, 프로덕션(GitHub Pages)에서는 /GenshinPartyCostCalculator/
+  base: mode === 'production' ? '/GenshinPartyCostCalculator/' : '/',
 }))
