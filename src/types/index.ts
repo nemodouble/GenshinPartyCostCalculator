@@ -1,8 +1,11 @@
-﻿export interface Character {
+﻿export type WeaponType = 'sword' | 'claymore' | 'polearm' | 'bow' | 'catalyst';
+
+export interface Character {
   id: string;
   name: string;
   icon: string;
   rarity?: number;
+  weaponType?: WeaponType;
 }
 
 export interface Weapon {
@@ -10,6 +13,7 @@ export interface Weapon {
   name: string;
   icon: string;
   rarity?: number;
+  weaponType?: WeaponType;
 }
 
 export interface PartySlot {

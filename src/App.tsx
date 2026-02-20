@@ -45,14 +45,26 @@ const AppContent = () => {
         const characterInfo = charInfoData.characterInfo || {};
         const weaponInfo = weaponInfoData.weaponInfo || {};
 
+        // 무기 ID에서 weaponType 추출하는 헬퍼 함수
+        const getWeaponTypeFromId = (id: string): string | undefined => {
+          if (id.startsWith('sword_')) return 'sword';
+          if (id.startsWith('claymore_')) return 'claymore';
+          if (id.startsWith('polearm_')) return 'polearm';
+          if (id.startsWith('catalyst_')) return 'catalyst';
+          if (id.startsWith('bow_')) return 'bow';
+          return undefined;
+        };
+
         const charactersWithRarity = (charactersData.characters || []).map((c: Character) => ({
           ...c,
           rarity: characterInfo[c.id]?.rarity,
+          weaponType: characterInfo[c.id]?.weaponType,
         }));
 
         const weaponsWithRarity = (weaponsData.weapons || []).map((w: Weapon) => ({
           ...w,
           rarity: weaponInfo[w.id]?.rarity,
+          weaponType: getWeaponTypeFromId(w.id),
         }));
 
         // 비용 데이터 변환

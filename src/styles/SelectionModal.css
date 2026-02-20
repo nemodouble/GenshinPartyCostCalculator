@@ -52,6 +52,19 @@
   font-weight: 700;
   color: #212121;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.weapon-type-badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
 }
 
 .modal-grid-wrapper {

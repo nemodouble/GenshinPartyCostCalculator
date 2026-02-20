@@ -2,7 +2,7 @@
 import type { Character, Weapon } from '../types.ts';
 import { useAppContext } from '../context/AppContext';
 import { useSelectionModal } from '../context/SelectionModalContext';
-import { getSelectedCharacterIds } from '../utils/helpers';
+import { getSelectedCharacterIds, findCharacter } from '../utils/helpers';
 import TabNav from './TabNav';
 import ItemGrid from './ItemGrid';
 import '../styles/SelectionModal.css';
@@ -17,11 +17,26 @@ const SelectionModal: React.FC<SelectionModalProps> = ({ characters, weapons }) 
   const { modal, closeModal } = useSelectionModal();
   const [activeTab, setActiveTab] = useState<'character' | 'weapon'>(modal.selectionMode);
   const [searchQuery, setSearchQuery] = useState('');
+  // 모달 내에서 방금 선택한 캐릭터를 추적 (dispatch 비동기 문제 해결)
+  const [localSelectedCharacter, setLocalSelectedCharacter] = useState<Character | null>(null);
+
+  // 현재 슬롯에서 선택된 캐릭터 가져오기 (기존 선택된 캐릭터)
+  const currentSlot = modal.partyNumber === 1 
+    ? state.party1[modal.slotIndex] 
+    : state.party2[modal.slotIndex];
+  const existingCharacter = useMemo(
+    () => findCharacter(currentSlot?.characterId, characters),
+    [currentSlot?.characterId, characters]
+  );
+
+  // 실제 사용할 캐릭터: 로컬에서 방금 선택한 캐릭터 우선, 없으면 기존 선택된 캐릭터
+  const selectedCharacter = localSelectedCharacter || existingCharacter;
 
   useEffect(() => {
     if (modal.isOpen) {
       setActiveTab(modal.selectionMode);
-      setSearchQuery(''); // 모달 열릴 때 검색어 초기화
+      setSearchQuery('');
+      setLocalSelectedCharacter(null); // 모달 열릴 때 로컬 선택 초기화
     }
   }, [modal.isOpen, modal.selectionMode]);
 
@@ -32,19 +47,32 @@ const SelectionModal: React.FC<SelectionModalProps> = ({ characters, weapons }) 
 
   const selectedCharacterIds = useMemo(() => getSelectedCharacterIds(state), [state]);
 
-  // 검색 필터링
+  // 무기 타입별 필터링 + 검색 필터링
   const filteredItems = useMemo(() => {
-    const items = activeTab === 'character' ? characters : weapons;
-    if (!searchQuery.trim()) return items;
+    let items: (Character | Weapon)[] = activeTab === 'character' ? characters : weapons;
     
-    const query = searchQuery.toLowerCase().trim();
-    return items.filter(item => 
-      item.name.toLowerCase().includes(query)
-    );
-  }, [activeTab, characters, weapons, searchQuery]);
+    // 무기 탭일 때: 선택된 캐릭터의 무기 타입으로 필터링
+    if (activeTab === 'weapon' && selectedCharacter?.weaponType) {
+      items = (items as Weapon[]).filter(w => w.weaponType === selectedCharacter.weaponType);
+    }
+    
+    // 검색어 필터링
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      items = items.filter(item => item.name.toLowerCase().includes(query));
+    }
+    
+    return items;
+  }, [activeTab, characters, weapons, searchQuery, selectedCharacter]);
 
   const handleItemSelect = (itemId: string) => {
     if (activeTab === 'character') {
+      // 선택한 캐릭터를 로컬 state에 즉시 저장
+      const selected = characters.find(c => c.id === itemId);
+      if (selected) {
+        setLocalSelectedCharacter(selected);
+      }
+      
       dispatch({
         type: 'SELECT_CHARACTER',
         partyNumber: modal.partyNumber,
@@ -69,6 +97,15 @@ const SelectionModal: React.FC<SelectionModalProps> = ({ characters, weapons }) 
     setActiveTab(tab);
   };
 
+  // 무기 타입 한글 이름
+  const weaponTypeNames: Record<string, string> = {
+    sword: '한손검',
+    claymore: '대검',
+    polearm: '장병기',
+    bow: '활',
+    catalyst: '법구',
+  };
+
   if (!modal.isOpen) {
     return null;
   }
@@ -80,6 +117,11 @@ const SelectionModal: React.FC<SelectionModalProps> = ({ characters, weapons }) 
 
         <h2 className="modal-title">
           {activeTab === 'character' ? '캐릭터 선택' : '무기 선택'}
+          {activeTab === 'weapon' && selectedCharacter?.weaponType && (
+            <span className="weapon-type-badge">
+              {weaponTypeNames[selectedCharacter.weaponType] || selectedCharacter.weaponType}
+            </span>
+          )}
         </h2>
 
         <TabNav activeTab={activeTab} onTabChange={handleTabChange} />
