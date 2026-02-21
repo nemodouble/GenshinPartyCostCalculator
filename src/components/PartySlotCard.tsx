@@ -126,7 +126,7 @@ const PartySlotCard: React.FC<PartySlotCardProps> = ({
               <h5 className="weapon-name">{weapon?.name || '무기 선택 안 함'}</h5>
               {weapon && (
                 <div className="control-group">
-                  <label>무기돌파:</label>
+                  <label>제련:</label>
                   <select
                     value={slot.refineLevel}
                     onChange={handleRefineChange}
