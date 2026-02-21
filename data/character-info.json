@@ -11,7 +11,7 @@
     "aino": { "rarity": 4, "baselineCost": 2, "isException": false, "weaponType": "claymore" },
     "ineffa": { "rarity": 5, "version": 6, "isException": false, "weaponType": "polearm" },
     "skirk": { "rarity": 5, "version": 6, "isException": false, "weaponType": "sword" },
-    "dahlia": { "rarity": 4, "baselineCost": 0, "isException": false, "weaponType": "catalyst" },
+    "dahlia": { "rarity": 4, "baselineCost": 0, "isException": false, "weaponType": "sword" },
     "escoffier": { "rarity": 5, "version": 5, "isException": false, "weaponType": "polearm" },
     "ifa": { "rarity": 4, "baselineCost": 0, "isException": false, "weaponType": "catalyst" },
     "iansan": { "rarity": 4, "baselineCost": 0, "isException": false, "weaponType": "polearm" },
