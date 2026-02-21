@@ -27,13 +27,14 @@ export const calculateSlotCost = (
     }
   }
 
-  // 무기 코스트 계산
+  // 무기 코스트 계산 (정련 1~5 -> 인덱스 0~4)
   const weaponsCostMap = costsRaw?.weapons;
   if (slot.weaponId && weaponsCostMap && typeof weaponsCostMap === 'object') {
     const weaponCost = weaponsCostMap[slot.weaponId];
     const arr = weaponCost?.refine;
     if (Array.isArray(arr)) {
-      const cost = arr[slot.refineLevel];
+      const refineIndex = slot.refineLevel - 1;
+      const cost = arr[refineIndex];
       if (typeof cost === 'number') totalCost += cost;
     }
   }

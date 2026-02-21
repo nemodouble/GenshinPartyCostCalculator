@@ -132,7 +132,7 @@ const PartySlotCard: React.FC<PartySlotCardProps> = ({
                     onChange={handleRefineChange}
                     className="select-dropdown"
                   >
-                    {[0, 1, 2, 3, 4, 5].map(level => (
+                    {[1, 2, 3, 4, 5].map(level => (
                       <option key={level} value={level}>
                         {level}
                       </option>

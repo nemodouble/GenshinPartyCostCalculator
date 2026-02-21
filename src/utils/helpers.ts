@@ -131,7 +131,7 @@ export const createEmptyParty = () => {
     characterId: undefined,
     constellationLevel: 0,
     weaponId: undefined,
-    refineLevel: 0,
+    refineLevel: 1,
   }));
 };
 

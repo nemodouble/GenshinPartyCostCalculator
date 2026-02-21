@@ -40,7 +40,7 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
       newParty[action.slotIndex] = {
         ...newParty[action.slotIndex],
         weaponId: action.weaponId,
-        refineLevel: 0, // 무기 선택 시 돌파 레벨 초기화
+        refineLevel: 1, // 무기 선택 시 정련 레벨 1로 초기화 (무기는 1재~5재)
       };
       return action.partyNumber === 1
         ? { ...state, party1: newParty }
@@ -75,7 +75,7 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         characterId: undefined,
         constellationLevel: 0,
         weaponId: undefined,
-        refineLevel: 0,
+        refineLevel: 1,
       };
       return action.partyNumber === 1
         ? { ...state, party1: newParty }
