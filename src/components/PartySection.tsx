@@ -30,24 +30,26 @@ const PartySection: React.FC<PartySectionProps> = ({
     <div className="party-section">
       <h2 className="party-title">파티 {partyNumber}</h2>
       
-      <div className="party-slots-grid">
-        {slots.map((slot, index) => (
-          <PartySlotCard
-            key={index}
-            slot={slot}
-            slotIndex={index}
-            partyNumber={partyNumber}
-            characters={characters}
-            weapons={weapons}
-            costs={costs}
-            costsRaw={costsRaw}
-          />
-        ))}
-      </div>
+      <div className="party-content">
+        <div className="party-slots-grid">
+          {slots.map((slot, index) => (
+            <PartySlotCard
+              key={index}
+              slot={slot}
+              slotIndex={index}
+              partyNumber={partyNumber}
+              characters={characters}
+              weapons={weapons}
+              costs={costs}
+              costsRaw={costsRaw}
+            />
+          ))}
+        </div>
 
-      <div className="party-cost-summary">
-        <span className="party-cost-label">파티 {partyNumber} 코스트:</span>
-        <span className="party-cost-value">{formatCost(partyCost)}</span>
+        <div className="party-cost-summary">
+          <span className="party-cost-label">파티 {partyNumber} 코스트</span>
+          <span className="party-cost-value">{formatCost(partyCost)}</span>
+        </div>
       </div>
     </div>
   );

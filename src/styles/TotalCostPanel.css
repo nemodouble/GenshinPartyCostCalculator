@@ -1,9 +1,10 @@
 ﻿.total-cost-panel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem;
+  gap: 1.5rem;
+  padding: 1.5rem 2.5rem;
   margin: 2rem 1rem 2rem 1rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
@@ -13,14 +14,14 @@
 }
 
 .total-cost-panel h2 {
-  margin: 0 0 1rem 0;
+  margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
 .total-cost-value {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -29,16 +30,17 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .total-cost-panel {
-    padding: 2rem;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
     margin: 2rem 0;
   }
 
   .total-cost-panel h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
+    font-size: 1rem;
   }
 
   .total-cost-value {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
   }
 }
