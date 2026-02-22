@@ -188,6 +188,45 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
     }
   };
 
+  // 클립보드에 복사
+  const handleCopyToClipboard = async () => {
+    if (!captureRef.current) return;
+
+    setIsGenerating(true);
+
+    // DOM이 렌더링될 때까지 대기
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    try {
+      const canvas = await html2canvas(captureRef.current, {
+        backgroundColor: '#1a1a2e',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+      });
+
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ 'image/png': blob })
+            ]);
+            alert('클립보드에 복사되었습니다!');
+          } catch (clipboardError) {
+            console.error('클립보드 복사 실패:', clipboardError);
+            alert('클립보드 복사에 실패했습니다. 브라우저 권한을 확인해주세요.');
+          }
+        }
+        setIsGenerating(false);
+      }, 'image/png');
+    } catch (error) {
+      console.error('캡처 실패:', error);
+      alert('이미지 생성에 실패했습니다.');
+      setIsGenerating(false);
+    }
+  };
+
   // 모달 배경 클릭시 닫기
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -323,6 +362,13 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
                 onClick={handleClosePreview}
               >
                 취소
+              </button>
+              <button 
+                className="capture-modal-copy" 
+                onClick={handleCopyToClipboard}
+                disabled={isGenerating}
+              >
+                {isGenerating ? '복사 중...' : '📋 클립보드에 복사'}
               </button>
               <button 
                 className="capture-modal-save" 
