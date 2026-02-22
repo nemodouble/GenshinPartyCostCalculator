@@ -1,11 +1,19 @@
-﻿.total-cost-panel {
+﻿.total-cost-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
+  margin: 2rem 1rem;
+}
+
+.total-cost-panel {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
   padding: 1.5rem 2.5rem;
-  margin: 2rem 1rem 2rem 1rem;
+  flex: 1;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
   color: white;
@@ -27,13 +35,38 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* 캡처 버튼 스타일 오버라이드 */
+.total-cost-container .capture-download-btn {
+  padding: 1.2rem 2rem;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.total-cost-container .capture-download-btn:hover {
+  background: linear-gradient(135deg, #5fbfff 0%, #20ffff 100%);
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+}
+
 /* 반응형 */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .total-cost-container {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 2rem 0;
+  }
+
   .total-cost-panel {
-    flex-direction: row;
     gap: 1rem;
     padding: 1.2rem 1.5rem;
-    margin: 2rem 0;
   }
 
   .total-cost-panel h2 {
@@ -42,5 +75,10 @@
 
   .total-cost-value {
     font-size: 1.8rem;
+  }
+
+  .total-cost-container .capture-download-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
   }
 }

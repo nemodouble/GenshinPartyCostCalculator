@@ -1,6 +1,7 @@
 ﻿import React, { useMemo } from 'react';
 import type { Character, Weapon, CostData, PartySlot } from '../types.ts';
 import { calculateTotalCost, formatCost } from '../utils/cost-calculator';
+import CaptureDownload from './CaptureDownload';
 import '../styles/TotalCostPanel.css';
 
 interface TotalCostPanelProps {
@@ -26,9 +27,19 @@ const TotalCostPanel: React.FC<TotalCostPanelProps> = ({
   );
 
   return (
-    <div className="total-cost-panel">
-      <h2>총 코스트</h2>
-      <div className="total-cost-value">{formatCost(totalCost)}</div>
+    <div className="total-cost-container">
+      <div className="total-cost-panel">
+        <h2>총 코스트</h2>
+        <div className="total-cost-value">{formatCost(totalCost)}</div>
+      </div>
+      <CaptureDownload
+        party1={party1}
+        party2={party2}
+        characters={characters}
+        weapons={weapons}
+        costs={costs}
+        costsRaw={costsRaw}
+      />
     </div>
   );
 };
