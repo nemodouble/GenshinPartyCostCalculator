@@ -106,7 +106,14 @@ const AppContent = () => {
 
   return (
     <div className="app">
-      <Header />
+      <Header 
+        party1={state.party1}
+        party2={state.party2}
+        characters={characters}
+        weapons={weapons}
+        costs={costs}
+        costsRaw={costsRaw}
+      />
       <main className="app-main">
         <PartySection
           partyNumber={1}

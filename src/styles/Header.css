@@ -15,6 +15,12 @@
   font-weight: 700;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
 .reset-all-btn {
   padding: 0.6rem 1.5rem;
   background-color: #ff4757;
@@ -48,7 +54,13 @@
     font-size: 1.4rem;
   }
 
-  .reset-all-btn {
+  .header-buttons {
     width: 100%;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .reset-all-btn {
+    flex: 1;
   }
 }
