@@ -6,12 +6,12 @@
 }
 
 .capture-download-btn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -19,6 +19,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
+  flex: 1;
+  white-space: nowrap;
 }
 
 /* 미리보기 버튼 */

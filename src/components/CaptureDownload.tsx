@@ -350,21 +350,44 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
           className="capture-download-btn capture-preview-btn" 
           onClick={handleOpenPreview}
         >
-          👁️ 미리보기
+          <span style={{display:'block',textAlign:'center'}}>
+            <span style={{fontSize:'1.2em'}}>👁️</span><br/>
+            파티 이미지<br/>보기
+          </span>
         </button>
         <button 
           className={`capture-download-btn capture-copy-btn ${isCopied ? 'completed' : ''}`}
           onClick={handleOpenAndCopy}
           disabled={isGenerating}
         >
-          {isCopied ? '✓ 복사 완료' : '📋 클립보드 복사'}
+          {isCopied ? (
+            <span style={{display:'block',textAlign:'center'}}>
+              <span style={{fontSize:'1.2em'}}>📋</span><br/>
+              파티 이미지<br/>복사 완료
+            </span>
+          ) : (
+            <span style={{display:'block',textAlign:'center'}}>
+              <span style={{fontSize:'1.2em'}}>📋</span><br/>
+              파티 이미지<br/>클립보드 복사
+            </span>
+          )}
         </button>
         <button 
           className={`capture-download-btn capture-save-btn ${isSaved ? 'completed' : ''}`}
           onClick={handleOpenAndSave}
           disabled={isGenerating}
         >
-          {isSaved ? '✓ 저장 완료' : '💾 이미지 저장'}
+          {isSaved ? (
+            <span style={{display:'block',textAlign:'center'}}>
+              <span style={{fontSize:'1.2em'}}>💾</span><br/>
+              파티 이미지<br/>저장 완료
+            </span>
+          ) : (
+            <span style={{display:'block',textAlign:'center'}}>
+              <span style={{fontSize:'1.2em'}}>💾</span><br/>
+              파티 이미지<br/>저장
+            </span>
+          )}
         </button>
       </div>
 
@@ -443,6 +466,10 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
 };
 
 export default CaptureDownload;
+
+
+
+
 
 
 
