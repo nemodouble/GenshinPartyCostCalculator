@@ -1,4 +1,4 @@
-﻿﻿.party-slot-card {
+﻿﻿﻿.party-slot-card {
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   background: white;
@@ -199,24 +199,63 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .party-slot-card {
-    min-height: 250px;
+    min-height: 200px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .slot-content-active {
+    padding: 0.75rem;
+  }
+
+  .character-section {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .character-icon {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .weapon-section {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .weapon-icon {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
   }
 
   .character-name {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .weapon-name {
+    font-size: 0.75rem;
+  }
+
+  .control-group label {
+    font-size: 0.75rem;
+  }
+
+  .select-dropdown {
     font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .cost-section {
+    padding-top: 0.5rem;
+  }
+
+  .cost-display {
+    font-size: 0.8rem;
+  }
+
+  .reset-slot-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
   }
 }
