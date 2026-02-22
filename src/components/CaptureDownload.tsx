@@ -350,7 +350,7 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
           className="capture-download-btn capture-preview-btn" 
           onClick={handleOpenPreview}
         >
-          👁️ 파티 보기
+          👁️ 미리보기
         </button>
         <button 
           className={`capture-download-btn capture-copy-btn ${isCopied ? 'completed' : ''}`}

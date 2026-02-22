@@ -31,6 +31,16 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
+/* 미리보기 버튼 */
+.capture-preview-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.capture-preview-btn:hover {
+  background: linear-gradient(135deg, #7b8fed 0%, #8a5db8 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
 /* 클립보드 복사 버튼 */
 .capture-copy-btn {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
