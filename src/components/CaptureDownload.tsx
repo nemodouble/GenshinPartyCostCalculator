@@ -70,13 +70,55 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
   costsRaw,
 }) => {
   const captureRef = useRef<HTMLDivElement>(null);
+  const modalBodyRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [imageCache, setImageCache] = useState<Record<string, string>>({});
+  const [previewScale, setPreviewScale] = useState(1);
+  const [scaledHeight, setScaledHeight] = useState<number | null>(null);
 
   const party1Cost = calculatePartyCost(party1, characters, weapons, costsRaw || costs);
   const party2Cost = calculatePartyCost(party2, characters, weapons, costsRaw || costs);
   const totalCost = calculateTotalCost(party1, party2, characters, weapons, costsRaw || costs);
+
+  // 미리보기 scale 계산
+  useEffect(() => {
+    if (!showPreview) {
+      setPreviewScale(1);
+      setScaledHeight(null);
+      return;
+    }
+
+    const calculateScale = () => {
+      if (!captureRef.current || !modalBodyRef.current) return;
+      
+      // 원본 크기를 얻기 위해 일시적으로 scale 제거
+      captureRef.current.style.transform = 'scale(1)';
+      
+      const contentWidth = captureRef.current.offsetWidth;
+      const contentHeight = captureRef.current.offsetHeight;
+      const containerWidth = modalBodyRef.current.clientWidth;
+      const padding = 30;
+      
+      if (contentWidth > 0 && containerWidth > 0) {
+        const availableWidth = containerWidth - padding;
+        const newScale = Math.min(1, availableWidth / contentWidth);
+        setPreviewScale(newScale);
+        setScaledHeight(contentHeight * newScale);
+      }
+    };
+    
+    // 초기 계산
+    const timer = setTimeout(calculateScale, 50);
+    
+    // 리사이즈 이벤트
+    window.addEventListener('resize', calculateScale);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', calculateScale);
+    };
+  }, [showPreview]);
 
   // 파티에 사용된 이미지들을 미리 캐싱
   useEffect(() => {
@@ -241,16 +283,36 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
               </button>
             </div>
             
-            <div className="capture-modal-body">
-              <div ref={captureRef} className="capture-content">
-                <div className="capture-parties">
-                  {renderParty(party1, 1, party1Cost)}
-                  {renderParty(party2, 2, party2Cost)}
-                </div>
+            <div 
+              className="capture-modal-body" 
+              ref={modalBodyRef}
+              style={{ height: scaledHeight ? scaledHeight + 30 : 'auto' }}
+            >
+              <div 
+                className="capture-content-wrapper"
+                style={{ 
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
+                <div 
+                  ref={captureRef} 
+                  className="capture-content"
+                  style={{ 
+                    transform: `scale(${previewScale})`, 
+                    transformOrigin: 'top center'
+                  }}
+                >
+                  <div className="capture-parties">
+                    {renderParty(party1, 1, party1Cost)}
+                    {renderParty(party2, 2, party2Cost)}
+                  </div>
 
-                <div className="capture-total">
-                  <span className="capture-total-label">총 코스트</span>
-                  <span className="capture-total-value">{formatCost(totalCost)}</span>
+                  <div className="capture-total">
+                    <span className="capture-total-label">총 코스트</span>
+                    <span className="capture-total-value">{formatCost(totalCost)}</span>
+                  </div>
                 </div>
               </div>
             </div>

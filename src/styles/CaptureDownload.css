@@ -48,7 +48,6 @@
   background: #1e1e2e;
   border-radius: 12px;
   max-width: 90vw;
-  max-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -89,36 +88,22 @@
 /* 모달 바디 */
 .capture-modal-body {
   padding: 15px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  max-height: calc(90vh - 130px);
+}
+
+.capture-content-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .capture-modal-body .capture-content {
-  transform-origin: top center;
   flex-shrink: 0;
 }
 
-@media (max-width: 600px) {
-  .capture-modal-body {
-    padding: 10px;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  
-  .capture-modal-body .capture-content {
-    transform: scale(0.58);
-    transform-origin: top left;
-  }
-}
-
-@media (max-width: 450px) {
-  .capture-modal-body .capture-content {
-    transform: scale(0.48);
-  }
-}
 
 /* 모달 푸터 */
 .capture-modal-footer {
@@ -173,7 +158,8 @@
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   padding: 12px;
   border-radius: 12px;
-  width: auto;
+  width: 560px;
+  min-width: 560px;
   color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
