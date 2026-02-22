@@ -1,7 +1,40 @@
-﻿import React, { createContext, useContext, useReducer } from 'react';
+﻿﻿﻿import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { AppState } from '../types.ts';
 import { createInitialAppState } from '../utils/helpers';
+
+const STORAGE_KEY = 'genshin-party-calculator-state';
+
+/**
+ * localStorage에서 상태 불러오기
+ */
+const loadStateFromStorage = (): AppState => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.party1 && parsed.party2 && 
+          Array.isArray(parsed.party1) && Array.isArray(parsed.party2) &&
+          parsed.party1.length === 4 && parsed.party2.length === 4) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('저장된 파티 데이터를 불러오는데 실패했습니다:', e);
+  }
+  return createInitialAppState();
+};
+
+/**
+ * localStorage에 상태 저장
+ */
+const saveStateToStorage = (state: AppState) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    console.warn('파티 데이터 저장에 실패했습니다:', e);
+  }
+};
 
 /**
  * 액션 타입 정의
@@ -108,7 +141,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
  * AppProvider 컴포넌트
  */
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(appReducer, createInitialAppState());
+  const [state, dispatch] = useReducer(appReducer, null, loadStateFromStorage);
+
+  // 상태가 변경될 때마다 localStorage에 저장
+  useEffect(() => {
+    saveStateToStorage(state);
+  }, [state]);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
