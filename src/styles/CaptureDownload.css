@@ -1,4 +1,11 @@
-﻿.capture-download-btn {
+﻿/* 버튼 그룹 */
+.capture-buttons-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.capture-download-btn {
   padding: 0.6rem 1.2rem;
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: white;
@@ -10,12 +17,48 @@
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
 }
 
-.capture-download-btn:hover {
-  transform: translateY(-2px);
+/* 미리보기 버튼 */
+.capture-preview-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.capture-preview-btn:hover {
+  background: linear-gradient(135deg, #7b8fed 0%, #8a5db8 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* 클립보드 복사 버튼 */
+.capture-copy-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.capture-copy-btn:hover {
+  background: linear-gradient(135deg, #f5a8fc 0%, #f77a8a 100%);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+/* 이미지 저장 버튼 */
+.capture-save-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.capture-save-btn:hover {
+  background: linear-gradient(135deg, #6fbfff 0%, #33f5ff 100%);
   box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
+/* 완료 상태 */
+.capture-download-btn.completed {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+}
+
+.capture-download-btn.completed:hover {
+  background: linear-gradient(135deg, #00d9a7 0%, #00e8e2 100%);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
 }
 
 .capture-download-btn:active {
@@ -153,6 +196,11 @@
   transform: none;
 }
 
+.capture-modal-copy.completed {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
+}
+
 .capture-modal-save {
   padding: 10px 24px;
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
@@ -174,6 +222,11 @@
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+.capture-modal-save.completed {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
 }
 
 /* 캡처용 컨테이너 - 삭제 */

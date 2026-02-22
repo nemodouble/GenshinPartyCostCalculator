@@ -76,6 +76,9 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
   const [imageCache, setImageCache] = useState<Record<string, string>>({});
   const [previewScale, setPreviewScale] = useState(1);
   const [scaledHeight, setScaledHeight] = useState<number | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [pendingAction, setPendingAction] = useState<'copy' | 'save' | null>(null);
 
   const party1Cost = calculatePartyCost(party1, characters, weapons, costsRaw || costs);
   const party2Cost = calculatePartyCost(party2, characters, weapons, costsRaw || costs);
@@ -120,6 +123,21 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
     };
   }, [showPreview]);
 
+  // pendingAction 처리 - 모달이 열리고 DOM이 준비되면 동작 수행
+  useEffect(() => {
+    if (showPreview && pendingAction && captureRef.current) {
+      const timer = setTimeout(async () => {
+        if (pendingAction === 'copy') {
+          await handleCopyToClipboard();
+        } else if (pendingAction === 'save') {
+          await handleSaveImage();
+        }
+        setPendingAction(null);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [showPreview, pendingAction]);
+
   // 파티에 사용된 이미지들을 미리 캐싱
   useEffect(() => {
     const loadImages = async () => {
@@ -150,12 +168,34 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
 
   // 미리보기 모달 열기
   const handleOpenPreview = () => {
+    setIsCopied(false);
+    setIsSaved(false);
+    setPendingAction(null);
+    setShowPreview(true);
+  };
+
+  // 클립보드 복사 버튼 클릭 - 모달 열고 바로 복사
+  const handleOpenAndCopy = () => {
+    setIsCopied(false);
+    setIsSaved(false);
+    setPendingAction('copy');
+    setShowPreview(true);
+  };
+
+  // 이미지 저장 버튼 클릭 - 모달 열고 바로 저장
+  const handleOpenAndSave = () => {
+    setIsCopied(false);
+    setIsSaved(false);
+    setPendingAction('save');
     setShowPreview(true);
   };
 
   // 미리보기 모달 닫기
   const handleClosePreview = () => {
     setShowPreview(false);
+    setIsCopied(false);
+    setIsSaved(false);
+    setPendingAction(null);
   };
 
   // 이미지 저장
@@ -180,6 +220,7 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
       link.download = `genshin-party-${new Date().toISOString().slice(0, 10)}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
+      setIsSaved(true);
     } catch (error) {
       console.error('캡처 실패:', error);
       alert('이미지 생성에 실패했습니다.');
@@ -212,7 +253,7 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
             await navigator.clipboard.write([
               new ClipboardItem({ 'image/png': blob })
             ]);
-            alert('클립보드에 복사되었습니다!');
+            setIsCopied(true);
           } catch (clipboardError) {
             console.error('클립보드 복사 실패:', clipboardError);
             alert('클립보드 복사에 실패했습니다. 브라우저 권한을 확인해주세요.');
@@ -304,12 +345,28 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
 
   return (
     <>
-      <button 
-        className="capture-download-btn" 
-        onClick={handleOpenPreview}
-      >
-        📷 이미지 저장
-      </button>
+      <div className="capture-buttons-group">
+        <button 
+          className="capture-download-btn capture-preview-btn" 
+          onClick={handleOpenPreview}
+        >
+          👁️ 파티 보기
+        </button>
+        <button 
+          className={`capture-download-btn capture-copy-btn ${isCopied ? 'completed' : ''}`}
+          onClick={handleOpenAndCopy}
+          disabled={isGenerating}
+        >
+          {isCopied ? '✓ 복사 완료' : '📋 클립보드 복사'}
+        </button>
+        <button 
+          className={`capture-download-btn capture-save-btn ${isSaved ? 'completed' : ''}`}
+          onClick={handleOpenAndSave}
+          disabled={isGenerating}
+        >
+          {isSaved ? '✓ 저장 완료' : '💾 이미지 저장'}
+        </button>
+      </div>
 
       {/* 미리보기 모달 */}
       {showPreview && (
@@ -361,21 +418,21 @@ const CaptureDownload: React.FC<CaptureDownloadProps> = ({
                 className="capture-modal-cancel" 
                 onClick={handleClosePreview}
               >
-                취소
+                닫기
               </button>
               <button 
-                className="capture-modal-copy" 
+                className={`capture-modal-copy ${isCopied ? 'completed' : ''}`}
                 onClick={handleCopyToClipboard}
                 disabled={isGenerating}
               >
-                {isGenerating ? '복사 중...' : '📋 클립보드에 복사'}
+                {isGenerating ? '복사 중...' : isCopied ? '✓ 복사 완료' : '📋 클립보드 복사'}
               </button>
               <button 
-                className="capture-modal-save" 
+                className={`capture-modal-save ${isSaved ? 'completed' : ''}`}
                 onClick={handleSaveImage}
                 disabled={isGenerating}
               >
-                {isGenerating ? '저장 중...' : '💾 이미지 저장'}
+                {isGenerating ? '저장 중...' : isSaved ? '✓ 저장 완료' : '💾 이미지 저장'}
               </button>
             </div>
           </div>
